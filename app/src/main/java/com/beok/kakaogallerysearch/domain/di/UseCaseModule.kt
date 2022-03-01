@@ -1,10 +1,7 @@
 package com.beok.kakaogallerysearch.domain.di
 
-import com.beok.kakaogallerysearch.domain.model.ImageChunk
-import com.beok.kakaogallerysearch.domain.model.VideoChunk
-import com.beok.kakaogallerysearch.domain.usecase.SearchImageUseCaseImpl
-import com.beok.kakaogallerysearch.domain.usecase.SearchUseCase
-import com.beok.kakaogallerysearch.domain.usecase.SearchVideoUseCaseImpl
+import com.beok.kakaogallerysearch.domain.usecase.SearchGalleryUseCase
+import com.beok.kakaogallerysearch.domain.usecase.SearchGalleryUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -17,9 +14,5 @@ interface UseCaseModule {
 
     @Binds
     @Singleton
-    fun bindsSearchImageUseCase(impl: SearchImageUseCaseImpl): SearchUseCase<ImageChunk>
-
-    @Binds
-    @Singleton
-    fun bindsSearchVideoUseCase(impl: SearchVideoUseCaseImpl): SearchUseCase<VideoChunk>
+    fun bindsSearchGalleryUseCase(impl: SearchGalleryUseCaseImpl): SearchGalleryUseCase
 }

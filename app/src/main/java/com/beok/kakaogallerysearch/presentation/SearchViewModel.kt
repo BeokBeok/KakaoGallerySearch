@@ -2,12 +2,9 @@ package com.beok.kakaogallerysearch.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.beok.kakaogallerysearch.domain.model.ImageChunk
-import com.beok.kakaogallerysearch.domain.model.VideoChunk
-import com.beok.kakaogallerysearch.domain.usecase.SearchUseCase
+import com.beok.kakaogallerysearch.domain.usecase.SearchGalleryUseCase
 import com.beok.kakaogallerysearch.presentation.model.Gallery
 import com.beok.kakaogallerysearch.presentation.model.Loading
 import com.beok.kakaogallerysearch.presentation.model.PageInfo
@@ -21,14 +18,11 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val searchImageUseCase: SearchUseCase<ImageChunk>,
-    private val searchVideoUseCase: SearchUseCase<VideoChunk>,
+    private val searchGalleryUseCase: SearchGalleryUseCase
 ) : ViewModel() {
 
     private val _galleryGroup = MutableLiveData<List<Gallery>>()
-    val galleryGroup: LiveData<List<Gallery>> get() = Transformations.map(_galleryGroup) {
-        it.sortedByDescending(Gallery::datetime)
-    }
+    val galleryGroup: LiveData<List<Gallery>> get() = _galleryGroup
 
     private val _boxGroup = MutableLiveData<List<Gallery>>()
     val boxGroup: LiveData<List<Gallery>> get() = _boxGroup
@@ -36,11 +30,9 @@ class SearchViewModel @Inject constructor(
     private val _error = MutableLiveData<Throwable>()
     val error: LiveData<Throwable> get() = _error
 
-    var imagePageInfo: PageInfo = PageInfo()
+    var pageInfo = PageInfo()
         private set
-    var videoPageInfo: PageInfo = PageInfo()
-        private set
-    private val loading = Loading()
+    val loading = Loading()
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         _error.value = throwable
@@ -48,22 +40,17 @@ class SearchViewModel @Inject constructor(
 
     fun setupPageInfo(isNext: Boolean = false) {
         if (!isNext) {
-            imagePageInfo = PageInfo()
-            videoPageInfo = PageInfo()
+            pageInfo = PageInfo()
             _galleryGroup.value = emptyList()
         } else {
-            imagePageInfo = imagePageInfo.copy(value = imagePageInfo.value + 1)
-            videoPageInfo = videoPageInfo.copy(value = videoPageInfo.value + 1)
+            pageInfo = pageInfo.copy(value = pageInfo.value + 1)
         }
     }
 
-    fun searchByVideo(query: String) = viewModelScope.launch(coroutineExceptionHandler) {
-        if (videoPageInfo.isEnd) return@launch
-        searchVideoUseCase
-            .execute(
-                query = query,
-                page = videoPageInfo.value
-            )
+    fun searchGallery(query: String) = viewModelScope.launch(coroutineExceptionHandler) {
+        if (pageInfo.isEnd) return@launch
+        searchGalleryUseCase
+            .execute(query = query, page = pageInfo.value)
             .catch {
                 loading.hide()
                 _error.value = it
@@ -71,30 +58,12 @@ class SearchViewModel @Inject constructor(
             .onStart { loading.show() }
             .onCompletion { loading.hide() }
             .collect {
-                _galleryGroup.value = (_galleryGroup.value ?: emptyList())
-                    .plus(it.videoGroup.map(Gallery::fromDomain))
-                videoPageInfo = videoPageInfo.copy(isEnd = it.isEnd)
+                _galleryGroup.value = (_galleryGroup.value?.toList() ?: emptyList())
+                    .plus(it.imageChunk.imageGroup.map(Gallery::fromDomain))
+                    .plus(it.videoChunk.videoGroup.map(Gallery::fromDomain))
+                    .sortedByDescending(Gallery::datetime)
+                pageInfo = pageInfo.copy(isEnd = it.imageChunk.isEnd && it.videoChunk.isEnd)
             }
-    }
-
-    fun searchByImage(query: String) = viewModelScope.launch(coroutineExceptionHandler) {
-        if (imagePageInfo.isEnd) return@launch
-            searchImageUseCase
-                .execute(
-                    query = query,
-                    page = imagePageInfo.value
-                )
-                .catch {
-                    loading.hide()
-                    _error.value = it
-                }
-                .onStart { loading.show() }
-                .onCompletion { loading.hide() }
-                .collect {
-                    _galleryGroup.value = (_galleryGroup.value ?: emptyList())
-                        .plus(it.imageGroup.map(Gallery::fromDomain))
-                    imagePageInfo = imagePageInfo.copy(isEnd = it.isEnd)
-                }
     }
 
     fun onClickForSave(item: Gallery) {
