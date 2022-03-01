@@ -26,3 +26,7 @@ object Moshi {
     const val ADAPTERS = "com.squareup.moshi:moshi-adapters:$VERSION"
     const val KOTLIN_CODEGEN = "com.squareup.moshi:moshi-kotlin-codegen:$VERSION"
 }
+
+object DESUGAR {
+    const val JDK_LIBS = "com.android.tools:desugar_jdk_libs:1.1.5"
+}
