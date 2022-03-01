@@ -42,5 +42,16 @@ dependencies {
 
     implementation(Google.MATERIAL)
 
+    Network.run {
+        implementation(RETROFIT)
+        implementation(CONVERTER_MOSHI)
+    }
+
+    Moshi.run {
+        implementation(KOTLIN)
+        implementation(ADAPTERS)
+        implementation(KOTLIN_CODEGEN)
+    }
+
     testImplementation(JUnit.CORE)
 }
