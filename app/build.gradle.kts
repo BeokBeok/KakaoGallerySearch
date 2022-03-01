@@ -46,6 +46,8 @@ dependencies {
         implementation(CORE_KTX)
         implementation(APPCOMPAT)
         implementation(CONSTRAINT_LAYOUT)
+        implementation(FRAGMENT_KTX)
+        implementation(LIFECYCLE_RUNTIME_KTX)
     }
 
     implementation(Google.MATERIAL)
