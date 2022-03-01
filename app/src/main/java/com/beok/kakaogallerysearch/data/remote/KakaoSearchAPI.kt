@@ -23,6 +23,6 @@ interface KakaoSearchAPI {
 
     companion object {
         private const val START_PAGE = 1
-        private const val PER_PAGE = 20
+        private const val PER_PAGE = 10
     }
 }
