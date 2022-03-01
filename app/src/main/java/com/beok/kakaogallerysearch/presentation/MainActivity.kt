@@ -6,7 +6,9 @@ import com.beok.kakaogallerysearch.R
 import com.beok.kakaogallerysearch.databinding.ActivityMainBinding
 import com.beok.kakaogallerysearch.presentation.adapter.MainAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private var binding: ActivityMainBinding? = null
