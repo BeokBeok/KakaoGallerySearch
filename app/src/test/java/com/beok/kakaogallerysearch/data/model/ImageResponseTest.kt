@@ -8,7 +8,7 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 
-class ImagesResponseTest {
+class ImageResponseTest {
 
     private lateinit var moshi: Moshi
 
@@ -22,7 +22,7 @@ class ImagesResponseTest {
 
     @Test
     fun `Json을 Response로 변환합니다`() {
-        val actual = moshi.adapter(ImagesResponse::class.java)
+        val actual = moshi.adapter(ImageResponse::class.java)
             .fromJson(IMAGES_RESPONSE_JSON)
 
         assertNotNull(actual?.meta)

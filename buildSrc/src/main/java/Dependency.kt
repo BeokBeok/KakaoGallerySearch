@@ -30,3 +30,15 @@ object Moshi {
 object DESUGAR {
     const val JDK_LIBS = "com.android.tools:desugar_jdk_libs:1.1.5"
 }
+
+object Coroutines {
+    const val CORE = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
+}
+
+object Mock {
+    const val K = "io.mockk:mockk:1.12.0"
+}
+
+object Etc {
+    const val TURBINE = "app.cash.turbine:turbine:0.7.0"
+}

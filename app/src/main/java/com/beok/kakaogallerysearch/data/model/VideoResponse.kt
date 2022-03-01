@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class VideosResponse(
+data class VideoResponse(
 
 	@Json(name="documents")
 	val documents: List<VideoItem>? = null,

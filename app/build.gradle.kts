@@ -55,6 +55,10 @@ dependencies {
         implementation(KOTLIN_CODEGEN)
     }
 
+    implementation(Coroutines.CORE)
+
     testImplementation(JUnit.CORE)
+    testImplementation(Mock.K)
+    testImplementation(Etc.TURBINE)
     coreLibraryDesugaring(DESUGAR.JDK_LIBS)
 }

@@ -4,13 +4,12 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import java.util.Date
-import org.junit.Assert
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 
-class VideosResponseTest {
+class VideoResponseTest {
 
     private lateinit var moshi: Moshi
 
@@ -24,7 +23,7 @@ class VideosResponseTest {
 
     @Test
     fun `Json을 Response로 변환합니다`() {
-        val actual = moshi.adapter(VideosResponse::class.java)
+        val actual = moshi.adapter(VideoResponse::class.java)
             .fromJson(VIDEOS_RESPONSE_JSON)
 
         assertNotNull(actual?.meta)
