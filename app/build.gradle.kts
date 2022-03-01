@@ -82,6 +82,11 @@ dependencies {
         kapt(COMPILER)
     }
 
+    Stetho.run {
+        implementation(CORE)
+        implementation(OKHTTP)
+    }
+
     testImplementation(JUnit.CORE)
     testImplementation(Mock.K)
     testImplementation(Etc.TURBINE)

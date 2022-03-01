@@ -1,6 +1,7 @@
 package com.beok.kakaogallerysearch.data.di
 
 import com.beok.kakaogallerysearch.data.interceptor.KakaoInterceptor
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -46,9 +47,14 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesOkHttpClient(): OkHttpClient = OkHttpClient
+    fun providesStethoInterceptor(): StethoInterceptor = StethoInterceptor()
+
+    @Provides
+    @Singleton
+    fun providesOkHttpClient(stethoInterceptor: StethoInterceptor): OkHttpClient = OkHttpClient
         .Builder()
         .addInterceptor(KakaoInterceptor::intercept)
+        .addNetworkInterceptor(stethoInterceptor)
         .build()
 
     @Provides

@@ -61,5 +61,10 @@ object Glide {
 
     const val CORE = "com.github.bumptech.glide:glide:$GLIDE_VER"
     const val COMPILER = "com.github.bumptech.glide:compiler:$GLIDE_VER"
+}
 
+object Stetho {
+    private const val VERSION = "1.5.1"
+    const val CORE = "com.facebook.stetho:stetho:$VERSION"
+    const val OKHTTP = "com.facebook.stetho:stetho-okhttp3:$VERSION"
 }
