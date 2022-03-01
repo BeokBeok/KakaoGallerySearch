@@ -70,6 +70,11 @@ dependencies {
         kapt(COMPILER)
     }
 
+    Glide.run {
+        implementation(CORE)
+        kapt(COMPILER)
+    }
+
     testImplementation(JUnit.CORE)
     testImplementation(Mock.K)
     testImplementation(Etc.TURBINE)
