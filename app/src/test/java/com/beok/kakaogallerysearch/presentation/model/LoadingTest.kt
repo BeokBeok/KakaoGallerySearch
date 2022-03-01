@@ -1,8 +1,8 @@
-package com.beok.kakaogallerysearch.presentation
+package com.beok.kakaogallerysearch.presentation.model
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.beok.kakaogallerysearch.getOrAwaitValue
-import org.junit.Assert.assertEquals
+import com.beok.kakaogallerysearch.presentation.model.Loading
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before

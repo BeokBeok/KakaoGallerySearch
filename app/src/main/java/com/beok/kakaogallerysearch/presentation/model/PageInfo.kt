@@ -1,4 +1,4 @@
-package com.beok.kakaogallerysearch.presentation
+package com.beok.kakaogallerysearch.presentation.model
 
 data class PageInfo(
     val value: Int = 1,

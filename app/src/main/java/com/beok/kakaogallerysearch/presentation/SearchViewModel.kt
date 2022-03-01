@@ -9,6 +9,8 @@ import com.beok.kakaogallerysearch.domain.model.ImageChunk
 import com.beok.kakaogallerysearch.domain.model.VideoChunk
 import com.beok.kakaogallerysearch.domain.usecase.SearchUseCase
 import com.beok.kakaogallerysearch.presentation.model.Gallery
+import com.beok.kakaogallerysearch.presentation.model.Loading
+import com.beok.kakaogallerysearch.presentation.model.PageInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineExceptionHandler
