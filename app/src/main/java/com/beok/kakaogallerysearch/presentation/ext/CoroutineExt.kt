@@ -1,4 +1,4 @@
-package com.beok.kakaogallerysearch.ext
+package com.beok.kakaogallerysearch.presentation.ext
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleCoroutineScope

@@ -1,4 +1,4 @@
-package com.beok.kakaogallerysearch.ext
+package com.beok.kakaogallerysearch.presentation.ext
 
 import android.widget.EditText
 import androidx.core.widget.doOnTextChanged
