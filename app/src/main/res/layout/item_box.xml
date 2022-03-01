@@ -8,9 +8,6 @@
             name="item"
             type="com.beok.kakaogallerysearch.presentation.model.Gallery" />
 
-        <variable
-            name="viewModel"
-            type="com.beok.kakaogallerysearch.presentation.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,12 +15,11 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_gallery_thumbnail"
+            android:id="@+id/iv_box_thumbnail"
             bind_glide_imageUrl="@{item.thumbnailUrl}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:contentDescription="@null"
-            android:onClick="@{() -> viewModel.onClickForSave(item)}"
             app:layout_constraintDimensionRatio="H,3:4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -80,7 +80,6 @@ class SearchViewModelTest {
     }
 
     @Test
-
     fun `이미지를 검색합니다`() = runBlocking {
         val mockResponse = ImageChunk(isEnd = false, imageGroup = listOf())
 
@@ -94,6 +93,15 @@ class SearchViewModelTest {
         val actual = mockResponse.imageGroup.map(Gallery::fromDomain)
 
         assertEquals(viewModel.galleryGroup.getOrAwaitValue(), actual)
+    }
+
+    @Test
+    fun `이미지를 클릭하면 해당 이미지를 보관합니다`() {
+        val item = Gallery(datetime = 0, thumbnailUrl = "")
+
+        viewModel.onClickForSave(item = item)
+
+        assertEquals(item, viewModel.boxGroup.getOrAwaitValue().firstOrNull())
     }
 
     companion object {

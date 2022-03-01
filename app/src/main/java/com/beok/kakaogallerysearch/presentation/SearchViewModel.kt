@@ -30,6 +30,9 @@ class SearchViewModel @Inject constructor(
         it.sortedByDescending(Gallery::datetime)
     }
 
+    private val _boxGroup = MutableLiveData<List<Gallery>>()
+    val boxGroup: LiveData<List<Gallery>> get() = _boxGroup
+
     private val _error = MutableLiveData<Throwable>()
     val error: LiveData<Throwable> get() = _error
 
@@ -92,5 +95,11 @@ class SearchViewModel @Inject constructor(
                         .plus(it.imageGroup.map(Gallery::fromDomain))
                     imagePageInfo = imagePageInfo.copy(isEnd = it.isEnd)
                 }
+    }
+
+    fun onClickForSave(item: Gallery) {
+        _boxGroup.value = (_boxGroup.value ?: emptyList())
+            .plus(item)
+            .distinct()
     }
 }

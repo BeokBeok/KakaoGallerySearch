@@ -2,17 +2,17 @@ package com.beok.kakaogallerysearch.presentation
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.beok.kakaogallerysearch.BR
 import com.beok.kakaogallerysearch.R
 import com.beok.kakaogallerysearch.databinding.FragmentSearchResultBinding
-import com.beok.kakaogallerysearch.presentation.ext.launchAndRepeatOnLifecycle
-import com.beok.kakaogallerysearch.presentation.ext.textChanges
 import com.beok.kakaogallerysearch.presentation.base.BaseFragment
 import com.beok.kakaogallerysearch.presentation.base.BaseListAdapter
+import com.beok.kakaogallerysearch.presentation.ext.launchAndRepeatOnLifecycle
+import com.beok.kakaogallerysearch.presentation.ext.textChanges
 import com.beok.kakaogallerysearch.presentation.model.Gallery
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -24,7 +24,7 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(
     layoutResourceID = R.layout.fragment_search_result
 ) {
 
-    private val viewModel by viewModels<SearchViewModel>()
+    private val viewModel by activityViewModels<SearchViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,10 +47,12 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(
                     oldItem == newItem
             }
         ).apply {
+            setHasStableIds(true)
             viewModel.galleryGroup.observe(viewLifecycleOwner) {
                 submitList(it)
             }
         }
+        binding.rvSearchResult.itemAnimator = null
     }
 
     private fun setupListener() {
