@@ -35,7 +35,10 @@ object DESUGAR {
 }
 
 object Coroutines {
-    const val CORE = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
+    private const val VERSION = "1.6.0"
+
+    const val CORE = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$VERSION"
+    const val TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$VERSION"
 }
 
 object Mock {

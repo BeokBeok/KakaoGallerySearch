@@ -38,6 +38,9 @@ android {
         dataBinding = true
         viewBinding = true
     }
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -64,7 +67,10 @@ dependencies {
         implementation(KOTLIN_CODEGEN)
     }
 
-    implementation(Coroutines.CORE)
+    Coroutines.run {
+        implementation(CORE)
+        testImplementation(TEST)
+    }
 
     Hilt.run {
         implementation(ANDROID)
