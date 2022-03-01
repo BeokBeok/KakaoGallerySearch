@@ -33,9 +33,14 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("com.google.android.material:material:1.5.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
-    testImplementation("junit:junit:4.13.2")
+
+    AndroidX.run {
+        implementation(CORE_KTX)
+        implementation(APPCOMPAT)
+        implementation(CONSTRAINT_LAYOUT)
+    }
+
+    implementation(Google.MATERIAL)
+
+    testImplementation(JUnit.CORE)
 }
