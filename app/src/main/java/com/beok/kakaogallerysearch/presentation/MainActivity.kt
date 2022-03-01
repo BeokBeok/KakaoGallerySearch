@@ -1,10 +1,11 @@
 package com.beok.kakaogallerysearch.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.databinding.DataBindingUtil
+import androidx.appcompat.app.AppCompatActivity
 import com.beok.kakaogallerysearch.R
 import com.beok.kakaogallerysearch.databinding.ActivityMainBinding
+import com.beok.kakaogallerysearch.presentation.adapter.MainAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,11 +15,31 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setupBinding()
+        setupUI()
     }
 
     override fun onDestroy() {
         binding = null
         super.onDestroy()
+    }
+
+    private fun setupUI() {
+        binding?.run {
+            vpMain.adapter = MainAdapter(
+                activity = this@MainActivity,
+                fragmentGroup = listOf(
+                    SearchResultFragment.newInstance(),
+                    MyBoxFragment.newInstance()
+                )
+            )
+            val tabTitleGroup = listOf(
+                getString(R.string.search_result),
+                getString(R.string.my_box)
+            )
+            TabLayoutMediator(tlMain, vpMain) { tab, position ->
+                tab.text = tabTitleGroup[position]
+            }.attach()
+        }
     }
 
     private fun setupBinding() {
