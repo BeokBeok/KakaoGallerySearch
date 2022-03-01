@@ -1,9 +1,11 @@
 package com.beok.kakaogallerysearch.data.model
 
+import com.beok.kakaogallerysearch.domain.model.Image
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import java.util.Date
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -29,6 +31,18 @@ class VideoResponseTest {
         assertNotNull(actual?.meta)
         assertNotNull(actual?.documents)
         assertNotEquals(emptyList<VideoItem>(), actual?.documents)
+    }
+
+    @Test
+    fun `domain 모델로 변환합니다`() {
+        val response = VideoResponse(documents = listOf(), meta = null)
+
+        val actual = response.toDomain()
+
+        actual.run {
+            assertEquals(false, isEnd)
+            assertEquals(emptyList<Image>(), videoGroup)
+        }
     }
 
     companion object {

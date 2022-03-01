@@ -1,10 +1,13 @@
 package com.beok.kakaogallerysearch.data.model
 
+import com.beok.kakaogallerysearch.domain.model.Image
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import java.util.Date
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 
@@ -28,6 +31,18 @@ class ImageResponseTest {
         assertNotNull(actual?.meta)
         assertNotNull(actual?.documents)
         assertNotEquals(emptyList<ImageItem>(), actual?.documents)
+    }
+
+    @Test
+    fun `domain 모델로 변환합니다`() {
+        val response = ImageResponse(documents = listOf(), meta = null)
+
+        val actual = response.toDomain()
+
+        actual.run {
+            assertEquals(false, isEnd)
+            assertEquals(emptyList<Image>(), imageGroup)
+        }
     }
 
     companion object {

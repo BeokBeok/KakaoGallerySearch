@@ -1,5 +1,7 @@
 package com.beok.kakaogallerysearch.data.model
 
+import com.beok.kakaogallerysearch.data.mapper.DataToDomainMapper
+import com.beok.kakaogallerysearch.domain.model.Video
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.Date
@@ -24,4 +26,14 @@ data class VideoItem(
 
 	@Json(name="author")
 	val author: String? = null
-)
+) : DataToDomainMapper<Video> {
+
+	override fun toDomain(): Video = Video(
+		title = title ?: "",
+		playTime = playTime ?: 0,
+		thumbnail = thumbnail ?: "",
+		url = url ?: "",
+		datetime = datetime ?: Date(0),
+		author = author ?: ""
+	)
+}

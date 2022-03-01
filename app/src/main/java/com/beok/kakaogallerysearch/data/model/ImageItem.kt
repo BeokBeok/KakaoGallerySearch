@@ -1,5 +1,7 @@
 package com.beok.kakaogallerysearch.data.model
 
+import com.beok.kakaogallerysearch.data.mapper.DataToDomainMapper
+import com.beok.kakaogallerysearch.domain.model.Image
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.Date
@@ -30,4 +32,16 @@ data class ImageItem(
 
 	@Json(name="datetime")
 	val datetime: Date? = null
-)
+) : DataToDomainMapper<Image> {
+
+	override fun toDomain(): Image = Image(
+		collection = collection ?: "",
+		thumbnailUrl = thumbnailUrl ?: "",
+		imageUrl = imageUrl ?: "",
+		width = width ?: 0,
+		height = height ?: 0,
+		displaySitename = displaySitename ?: "",
+		docUrl = docUrl ?: "",
+		datetime = datetime ?: Date(0)
+	)
+}

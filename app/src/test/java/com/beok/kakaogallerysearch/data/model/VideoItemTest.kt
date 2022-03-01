@@ -34,6 +34,28 @@ class VideoItemTest {
         assertEquals(AUTHOR, actual?.author)
     }
 
+    @Test
+    fun `domain 모델로 변환합니다`() {
+        val response = VideoItem(
+            title = TITLE,
+            playTime = PLAY_TIME,
+            thumbnail = THUMBNAIL,
+            url = URL,
+            datetime = Date(ISO8601Utils.fromString(DATETIME)),
+            author = AUTHOR
+        )
+        val actual = response.toDomain()
+
+        actual.run {
+            assertEquals(TITLE, title)
+            assertEquals(PLAY_TIME, playTime)
+            assertEquals(THUMBNAIL, thumbnail)
+            assertEquals(URL, url)
+            assertEquals(ISO8601Utils.fromString(DATETIME), datetime.time)
+            assertEquals(AUTHOR, author)
+        }
+    }
+
     companion object {
         private const val TITLE = "AOA 지민·김용만, 돼지꼬리 맛에 정신혼미 ‘극찬세례’"
         private const val PLAY_TIME = 185

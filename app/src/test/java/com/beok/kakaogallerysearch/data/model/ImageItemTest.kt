@@ -36,6 +36,32 @@ class ImageItemTest {
         assertEquals(ISO8601Utils.fromString(DATETIME), actual?.datetime?.time)
     }
 
+    @Test
+    fun `domain 모델로 변환합니다`() {
+        val response = ImageItem(
+            collection = COLLECTION,
+            thumbnailUrl = THUMBNAIL_URL,
+            imageUrl = IMAGE_URL,
+            width = WIDTH,
+            height = HEIGHT,
+            displaySitename = DISPLAY_SITENAME,
+            docUrl = DOC_URL,
+            datetime = Date(ISO8601Utils.fromString(DATETIME))
+        )
+        val actual = response.toDomain()
+
+        actual.run {
+            assertEquals(COLLECTION, collection)
+            assertEquals(THUMBNAIL_URL, thumbnailUrl)
+            assertEquals(IMAGE_URL, imageUrl)
+            assertEquals(WIDTH, width)
+            assertEquals(HEIGHT, height)
+            assertEquals(DISPLAY_SITENAME, displaySitename)
+            assertEquals(DOC_URL, docUrl)
+            assertEquals(ISO8601Utils.fromString(DATETIME), datetime.time)
+        }
+    }
+
     companion object {
         private const val COLLECTION = "news"
         private const val THUMBNAIL_URL = "https://search2.kakaocdn.net/argon/130x130_85_c/36hQpoTrVZp"
