@@ -29,9 +29,14 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupBinding()
         setupUI()
         setupListener()
         showContent()
+    }
+
+    private fun setupBinding() {
+        binding.viewModel = viewModel
     }
 
     private fun setupUI() {
@@ -47,7 +52,6 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(
                     oldItem == newItem
             }
         ).apply {
-            setHasStableIds(true)
             viewModel.galleryGroup.observe(viewLifecycleOwner) {
                 submitList(it)
             }
@@ -90,8 +94,7 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(
 
     private fun loadContent(isNext: Boolean, keyword: String) {
         viewModel.setupPageInfo(isNext)
-        viewModel.searchByImage(keyword)
-        viewModel.searchByVideo(keyword)
+        viewModel.searchGallery(keyword)
     }
 
     companion object {

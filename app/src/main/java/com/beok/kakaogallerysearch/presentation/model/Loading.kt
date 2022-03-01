@@ -7,7 +7,7 @@ import androidx.lifecycle.Transformations
 class Loading(initialValue: Int = 0) {
 
     private val _isLoadingCount = MutableLiveData(initialValue)
-    val isLoadingCount: LiveData<Boolean> get() = Transformations.map(_isLoadingCount) {
+    val isLoading: LiveData<Boolean> get() = Transformations.map(_isLoadingCount) {
         it > 0
     }
 
