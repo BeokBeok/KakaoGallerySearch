@@ -42,3 +42,10 @@ object Mock {
 object Etc {
     const val TURBINE = "app.cash.turbine:turbine:0.7.0"
 }
+
+object Hilt {
+    const val VERSION = "2.41"
+
+    const val ANDROID = "com.google.dagger:hilt-android:$VERSION"
+    const val COMPILER = "com.google.dagger:hilt-compiler:$VERSION"
+}

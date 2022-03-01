@@ -2,10 +2,11 @@ package com.beok.kakaogallerysearch.data.remote
 
 import com.beok.kakaogallerysearch.data.model.ImageResponse
 import com.beok.kakaogallerysearch.data.model.VideoResponse
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class KakaoSearchRemoteDataSourceImpl(
+class KakaoSearchRemoteDataSourceImpl @Inject constructor(
     private val api: KakaoSearchAPI
 ) : KakaoSearchRemoteDataSource {
 

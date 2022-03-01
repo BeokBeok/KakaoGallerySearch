@@ -2,10 +2,11 @@ package com.beok.kakaogallerysearch.domain.usecase
 
 import com.beok.kakaogallerysearch.domain.model.GalleryChunk
 import com.beok.kakaogallerysearch.domain.repository.KakaoSearchRepository
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.zip
 
-class SearchGalleryUseCaseImpl(
+class SearchGalleryUseCaseImpl @Inject constructor(
     private val repository: KakaoSearchRepository
 ) : SearchGalleryUseCase {
 
