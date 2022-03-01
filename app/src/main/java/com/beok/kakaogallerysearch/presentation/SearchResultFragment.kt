@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.beok.kakaogallerysearch.BR
 import com.beok.kakaogallerysearch.R
 import com.beok.kakaogallerysearch.databinding.FragmentSearchResultBinding
@@ -29,6 +30,7 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(
         super.onViewCreated(view, savedInstanceState)
 
         setupUI()
+        setupListener()
         showContent()
     }
 
@@ -51,6 +53,22 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(
         }
     }
 
+    private fun setupListener() {
+        binding.rvSearchResult.addOnScrollListener(
+            object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    if (dy < 0) return
+                    val bottomDirection = 1
+                    if (!recyclerView.canScrollVertically(bottomDirection)) {
+                        loadContent(isNext = true, keyword = binding.etSearchResult.text.toString())
+                    }
+                }
+            }
+        )
+    }
+
     private fun showContent() {
         launchAndRepeatOnLifecycle(
             scope = lifecycleScope,
@@ -62,12 +80,16 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(
                 .debounce(300)
                 .collectLatest {
                     it?.toString()?.let { keyword ->
-                        viewModel.setupPageInfo()
-                        viewModel.searchByImage(keyword)
-                        viewModel.searchByVideo(keyword)
+                        loadContent(isNext = false, keyword = keyword)
                     }
                 }
         }
+    }
+
+    private fun loadContent(isNext: Boolean, keyword: String) {
+        viewModel.setupPageInfo(isNext)
+        viewModel.searchByImage(keyword)
+        viewModel.searchByVideo(keyword)
     }
 
     companion object {
