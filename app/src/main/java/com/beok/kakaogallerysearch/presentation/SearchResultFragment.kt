@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.beok.kakaogallerysearch.BR
 import com.beok.kakaogallerysearch.R
 import com.beok.kakaogallerysearch.databinding.FragmentSearchResultBinding
+import com.beok.kakaogallerysearch.presentation.base.BaseAdapter
 import com.beok.kakaogallerysearch.presentation.base.BaseFragment
-import com.beok.kakaogallerysearch.presentation.base.BaseListAdapter
 import com.beok.kakaogallerysearch.presentation.ext.launchAndRepeatOnLifecycle
 import com.beok.kakaogallerysearch.presentation.ext.textChanges
 import com.beok.kakaogallerysearch.presentation.model.Gallery
@@ -40,23 +39,15 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(
     }
 
     private fun setupUI() {
-        binding.rvSearchResult.adapter = BaseListAdapter(
-            layoutResourceID = R.layout.item_gallery,
+        binding.rvSearchResult.adapter = BaseAdapter<Gallery>(
+            layoutResourceId = R.layout.item_gallery,
             bindingID = BR.item,
-            viewModel = mapOf(BR.viewModel to viewModel),
-            diffUtil = object : DiffUtil.ItemCallback<Gallery>() {
-                override fun areItemsTheSame(oldItem: Gallery, newItem: Gallery): Boolean =
-                    oldItem.datetime == newItem.datetime
-
-                override fun areContentsTheSame(oldItem: Gallery, newItem: Gallery): Boolean =
-                    oldItem == newItem
-            }
+            viewModel = mapOf(BR.viewModel to viewModel)
         ).apply {
             viewModel.galleryGroup.observe(viewLifecycleOwner) {
-                submitList(it)
+                replaceItems(it)
             }
         }
-        binding.rvSearchResult.itemAnimator = null
     }
 
     private fun setupListener() {

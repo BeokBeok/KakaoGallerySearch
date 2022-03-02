@@ -3,13 +3,11 @@ package com.beok.kakaogallerysearch.presentation
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DiffUtil
 import com.beok.kakaogallerysearch.BR
 import com.beok.kakaogallerysearch.R
 import com.beok.kakaogallerysearch.databinding.FragmentMyBoxBinding
+import com.beok.kakaogallerysearch.presentation.base.BaseAdapter
 import com.beok.kakaogallerysearch.presentation.base.BaseFragment
-import com.beok.kakaogallerysearch.presentation.base.BaseListAdapter
 import com.beok.kakaogallerysearch.presentation.model.Gallery
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,20 +25,12 @@ class MyBoxFragment : BaseFragment<FragmentMyBoxBinding>(
     }
 
     private fun setupUI() {
-        binding.rvMyBox.adapter = BaseListAdapter(
-            layoutResourceID = R.layout.item_gallery,
+        binding.rvMyBox.adapter = BaseAdapter<Gallery>(
+            layoutResourceId = R.layout.item_gallery,
             bindingID = BR.item,
-            viewModel = mapOf(BR.viewModel to viewModel),
-            diffUtil = object : DiffUtil.ItemCallback<Gallery>() {
-                override fun areItemsTheSame(oldItem: Gallery, newItem: Gallery): Boolean =
-                    oldItem.datetime == newItem.datetime
-
-                override fun areContentsTheSame(oldItem: Gallery, newItem: Gallery): Boolean =
-                    oldItem == newItem
-            }
         ).apply {
             viewModel.boxGroup.observe(viewLifecycleOwner) {
-                submitList(it)
+                replaceItems(it)
             }
         }
     }
