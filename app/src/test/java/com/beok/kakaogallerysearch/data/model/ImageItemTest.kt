@@ -9,6 +9,9 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
+// api response가 잘 변환 되는지 보는 테스트가 어떤 의미가 있는지 정리해둘 필요가 있어보여요.
+// 개인적으로 저는 좋아하진 않는게, moshi가 잘 동작하는지 테스트하는 것처럼 보여서요.
+// 그런 테스트는 moshi 라이브러리 내에서 해야한다고 생각하는 주의라 여튼 이런 질문이 나올 수 있으니 충분히 리저너블한 답변을 준비해보시는게 좋아보입니다!
 class ImageItemTest {
 
     private lateinit var moshi: Moshi

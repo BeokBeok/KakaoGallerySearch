@@ -35,4 +35,6 @@ class LoadingTest {
 
         assertFalse(loading.isLoading.getOrAwaitValue())
     }
+
+    // loading이 0일때 hide 하더라도 0 유지되는 tc도 있으면 좋을것 같아요.
 }

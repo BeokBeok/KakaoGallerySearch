@@ -7,9 +7,7 @@ import androidx.lifecycle.Transformations
 class Loading(initialValue: Int = 0) {
 
     private val _isLoadingCount = MutableLiveData(initialValue)
-    val isLoading: LiveData<Boolean> get() = Transformations.map(_isLoadingCount) {
-        it > 0
-    }
+    val isLoading: LiveData<Boolean> get() = Transformations.map(_isLoadingCount) { it > 0 }
 
     fun show() {
         _isLoadingCount.value = (_isLoadingCount.value ?: 0) + LOADING_UNIT
@@ -17,7 +15,11 @@ class Loading(initialValue: Int = 0) {
 
     fun hide() {
         val count = (_isLoadingCount.value ?: 0) - LOADING_UNIT
-        _isLoadingCount.value = if (count < 0) 0 else count
+        _isLoadingCount.value = if (count < 0) {
+            0
+        } else {
+            count
+        }
     }
 
     companion object {

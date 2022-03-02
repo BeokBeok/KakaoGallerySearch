@@ -71,6 +71,7 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(
             scope = lifecycleScope,
             owner = viewLifecycleOwner
         ) {
+            // FlowPreview < lint 잡히는거 그레들 어디에 옵션 넣으면 됐던거 같은데, 이런거 넣어주면 좋아할것 같아요.
             binding.etSearchResult
                 .textChanges()
                 .filterNot(CharSequence?::isNullOrBlank)
@@ -80,12 +81,12 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(
                         loadContent(isNext = false, keyword = keyword)
                     }
                 }
+            // collectLatest 동작도 면접 질문으로 딱이네요. 근데 collectLatest가 필요한가요? debounce만으로는 안되나요?
         }
     }
 
     private fun loadContent(isNext: Boolean, keyword: String) {
-        viewModel.setupPageInfo(isNext)
-        viewModel.searchGallery(keyword)
+        viewModel.searchGallery(isNext, keyword)
     }
 
     companion object {

@@ -18,7 +18,7 @@ data class VideoResponse(
 
 	override fun toDomain(): VideoChunk = VideoChunk(
 		isEnd = meta?.isEnd ?: false,
-		videoGroup = documents?.toDomain() ?: emptyList()
+		videoGroup = documents?.toDomain().orEmpty()
 	)
 }
 

@@ -3,7 +3,13 @@ package com.beok.kakaogallerysearch.data.di
 import com.beok.kakaogallerysearch.data.interceptor.KakaoInterceptor
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.squareup.moshi.Moshi
+// moshi 사용한 이유는 한번 정리하고 가시면 좋을것 같아요. 저도 사용한적 없고 여기도 깊게 아시는 분이 별로 없을거라 질문하기 좋아보여요
+
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
+// 규격에 대해 확실하게 아는건 아니지만 API 문서상 iso8601 규격이여서, 질문하기 좋아보여요.
+// 이것도 왜 문제 없는지 정리해두면 답변하기 좋을것 같아요
+// https://ijmacd.github.io/rfc3339-iso8601/
+
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides

@@ -20,18 +20,23 @@ class MyBoxFragment : BaseFragment<FragmentMyBoxBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupUI()
     }
 
     private fun setupUI() {
-        binding.rvMyBox.adapter = BaseAdapter<Gallery>(
-            layoutResourceId = R.layout.item_gallery,
-            bindingID = BR.item,
-        ).apply {
-            viewModel.boxGroup.observe(viewLifecycleOwner) {
-                replaceItems(it)
-            }
+//        binding.rvMyBox.adapter = BaseAdapter<Gallery>(
+//            layoutResourceId = R.layout.item_gallery,
+//            bindingID = BR.item,
+//        ).apply { // apply랑 조금 안맞는거 같아요.
+//            viewModel.boxGroup.observe(viewLifecycleOwner) {
+//                replaceItems(it)
+//            }
+//        }
+
+        val adapter = BaseAdapter<Gallery>(R.layout.item_gallery, BR.item)
+        binding.rvMyBox.adapter = adapter
+        viewModel.boxGroup.observe(viewLifecycleOwner) {
+            adapter.replaceItems(it)
         }
     }
 
