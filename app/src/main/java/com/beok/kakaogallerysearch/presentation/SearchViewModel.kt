@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.beok.kakaogallerysearch.domain.usecase.SearchGalleryUseCase
 import com.beok.kakaogallerysearch.presentation.model.Gallery
 import com.beok.kakaogallerysearch.presentation.model.Loading
+import com.beok.kakaogallerysearch.presentation.model.MyBoxStatus
 import com.beok.kakaogallerysearch.presentation.model.PageInfo
 import com.beok.kakaogallerysearch.presentation.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,6 +30,9 @@ class SearchViewModel @Inject constructor(
 
     private val _error = MutableLiveData<Event<Throwable>>()
     val error: LiveData<Event<Throwable>> get() = _error
+
+    private val _myBoxStatus = MutableLiveData<Event<MyBoxStatus>>()
+    val myBoxStatus: LiveData<Event<MyBoxStatus>> get() = _myBoxStatus
 
     private val pageInfo = PageInfo()
     val loading = Loading()
@@ -59,8 +63,12 @@ class SearchViewModel @Inject constructor(
         }
 
     fun onClickForSave(item: Gallery) {
-        _boxGroup.value = (_boxGroup.value?.toList() ?: emptyList())
-            .plus(item)
-            .distinct()
+        if (_boxGroup.value?.contains(item) == true) {
+            _myBoxStatus.value = Event(MyBoxStatus.AlreadyAdded)
+        } else {
+            _myBoxStatus.value = Event(MyBoxStatus.Added)
+            _boxGroup.value = (_boxGroup.value?.toList() ?: emptyList())
+                .plus(item)
+        }
     }
 }

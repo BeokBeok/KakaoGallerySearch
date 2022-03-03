@@ -15,6 +15,7 @@ import com.beok.kakaogallerysearch.presentation.ext.launchAndRepeatOnLifecycle
 import com.beok.kakaogallerysearch.presentation.ext.textChanges
 import com.beok.kakaogallerysearch.presentation.model.ClickAction
 import com.beok.kakaogallerysearch.presentation.model.Gallery
+import com.beok.kakaogallerysearch.presentation.model.MyBoxStatus
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
@@ -62,6 +63,18 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(
             Toast.makeText(
                 requireContext(),
                 error.message ?: getString(R.string.error_occurred_retry),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        myBoxStatus.observe(viewLifecycleOwner) {
+            val status = it.getContentIfNotHandled() ?: return@observe
+            val message = when (status) {
+                MyBoxStatus.Added -> getString(R.string.added_box)
+                MyBoxStatus.AlreadyAdded -> getString(R.string.already_box)
+            }
+            Toast.makeText(
+                requireContext(),
+                message,
                 Toast.LENGTH_SHORT
             ).show()
         }
