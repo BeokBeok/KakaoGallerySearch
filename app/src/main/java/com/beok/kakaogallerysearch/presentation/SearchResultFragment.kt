@@ -24,7 +24,6 @@ import kotlinx.coroutines.flow.filterNot
 class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(
     layoutResourceID = R.layout.fragment_search_result
 ) {
-
     private val viewModel by activityViewModels<SearchViewModel>()
     private val adapter by lazy {
         BaseAdapter<Gallery>(

@@ -4,8 +4,6 @@
 
     <data>
 
-        <import type="android.view.View" />
-
         <variable
             name="viewModel"
             type="com.beok.kakaogallerysearch.presentation.SearchViewModel" />
@@ -41,9 +39,19 @@
 
         <ProgressBar
             android:id="@+id/pb_search_result"
+            bind_isVisible="@{viewModel.loading.isLoading}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{viewModel.loading.isLoading ? View.VISIBLE : View.GONE, default=gone}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            bind_isVisible="@{viewModel.galleryGroup.isEmpty() &amp;&amp; !viewModel.loading.isLoading}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_result"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -7,4 +7,7 @@
     <string name="input_keyword">검색어를 입력해주세요</string>
 
     <string name="error_occurred_retry">에러가 발생하였습니다.\n다시 시도해주세요.</string>
+
+    <string name="no_result">검색 결과가 없습니다.</string>
+    <string name="empty_box">보관함이 비었습니다.</string>
 </resources>

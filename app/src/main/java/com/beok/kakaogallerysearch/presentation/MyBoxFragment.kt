@@ -2,6 +2,7 @@ package com.beok.kakaogallerysearch.presentation
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.beok.kakaogallerysearch.BR
 import com.beok.kakaogallerysearch.R
@@ -15,7 +16,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MyBoxFragment : BaseFragment<FragmentMyBoxBinding>(
     layoutResourceID = R.layout.fragment_my_box
 ) {
-
     private val viewModel by activityViewModels<SearchViewModel>()
     private val adapter by lazy {
         BaseAdapter<Gallery>(
@@ -33,6 +33,7 @@ class MyBoxFragment : BaseFragment<FragmentMyBoxBinding>(
 
     private fun setupObserver() {
         viewModel.boxGroup.observe(viewLifecycleOwner) {
+            binding.tvMyBoxEmpty.isVisible = it.isEmpty()
             adapter.replaceItems(it)
         }
     }
