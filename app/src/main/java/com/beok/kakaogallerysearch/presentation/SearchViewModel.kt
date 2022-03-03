@@ -8,6 +8,7 @@ import com.beok.kakaogallerysearch.domain.usecase.SearchGalleryUseCase
 import com.beok.kakaogallerysearch.presentation.model.Gallery
 import com.beok.kakaogallerysearch.presentation.model.Loading
 import com.beok.kakaogallerysearch.presentation.model.PageInfo
+import com.beok.kakaogallerysearch.presentation.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -26,15 +27,15 @@ class SearchViewModel @Inject constructor(
     private val _boxGroup = MutableLiveData<List<Gallery>>()
     val boxGroup: LiveData<List<Gallery>> get() = _boxGroup
 
-    private val _error = MutableLiveData<Throwable>()
-    val error: LiveData<Throwable> get() = _error
+    private val _error = MutableLiveData<Event<Throwable>>()
+    val error: LiveData<Event<Throwable>> get() = _error
 
     private val pageInfo = PageInfo()
     val loading = Loading()
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         loading.hide()
-        _error.value = throwable
+        _error.value = Event(content = throwable)
     }
 
     fun searchGallery(isNext: Boolean, query: String) =

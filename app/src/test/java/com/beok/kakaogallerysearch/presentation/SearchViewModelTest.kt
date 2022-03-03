@@ -120,7 +120,7 @@ class SearchViewModelTest {
         viewModel.searchGallery(isNext = false, query = QUERY)
 
         // then
-        assertEquals(mockResponse, viewModel.error.getOrAwaitValue())
+        assertEquals(mockResponse, viewModel.error.getOrAwaitValue().getContentIfNotHandled())
     }
 
     @Test

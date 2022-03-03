@@ -2,6 +2,7 @@ package com.beok.kakaogallerysearch.presentation
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
@@ -53,9 +54,17 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(
         binding.rvSearchResult.adapter = adapter
     }
 
-    private fun setupObserver() {
-        viewModel.galleryGroup.observe(viewLifecycleOwner) {
+    private fun setupObserver() = with(viewModel) {
+        galleryGroup.observe(viewLifecycleOwner) {
             adapter.replaceItems(it)
+        }
+        error.observe(viewLifecycleOwner) {
+            val error = it.getContentIfNotHandled() ?: return@observe
+            Toast.makeText(
+                requireContext(),
+                error.message ?: getString(R.string.error_occurred_retry),
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
