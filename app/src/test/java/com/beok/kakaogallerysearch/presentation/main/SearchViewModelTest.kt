@@ -107,6 +107,51 @@ class SearchViewModelTest {
     }
 
     @Test
+    fun `이전에 검색한 데이터가 모두 마지막이였다면_다음 이미지와 비디오를 불러올 때_요청하지 않는다`() = runBlocking {
+        // given
+        val imageChunk = ImageChunk(
+            isEnd = true,
+            imageGroup = listOf(
+                Image(
+                    collection = "",
+                    thumbnailUrl = "",
+                    imageUrl = "",
+                    width = 0,
+                    height = 0,
+                    displaySitename = "",
+                    docUrl = "",
+                    datetime = Date(0)
+                )
+            )
+        )
+        val videoChunk = VideoChunk(
+            isEnd = true,
+            videoGroup = listOf(
+                Video(
+                    title = "",
+                    playTime = 0,
+                    thumbnail = "",
+                    url = "",
+                    datetime = Date(0),
+                    author = ""
+                )
+            )
+        )
+        every {
+            searchGalleryUseCase.execute(query = QUERY)
+        } returns flow {
+            emit(ImageVideoChunk(imageChunk, videoChunk))
+        }
+        viewModel.searchGallery(isNext = false, query = QUERY)
+
+        // when
+        viewModel.searchGallery(isNext = true, query = QUERY)
+
+        // then
+        assertEquals(2, viewModel.galleryGroup.getOrAwaitValue().size)
+    }
+
+    @Test
     fun `이미지와 비디오 검색할 때_에러가 발생하면_error값을 설정합니다`() = runBlocking {
         // given
         val mockResponse = Throwable("HTTP 400 Bad Request")
