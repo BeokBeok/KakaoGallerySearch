@@ -39,5 +39,17 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@android:drawable/btn_star" />
 
+        <TextView
+            bind_setText_galleryDateTime="@{item.datetime}"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="@id/iv_gallery_thumbnail"
+            app:layout_constraintStart_toStartOf="@id/iv_gallery_thumbnail"
+            app:layout_constraintTop_toBottomOf="@id/iv_gallery_thumbnail"
+            tools:text="2022년 2월 11일 오전 9:57" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
