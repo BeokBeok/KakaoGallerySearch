@@ -17,7 +17,7 @@
 
         <variable
             name="onClick"
-            type="com.beok.kakaogallerysearch.presentation.main.model.Gallery" />
+            type="Function1&lt;Gallery,Unit&gt;" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
