@@ -17,22 +17,28 @@ class MyBoxFragment : BaseFragment<FragmentMyBoxBinding>(
 ) {
 
     private val viewModel by activityViewModels<SearchViewModel>()
+    private val adapter by lazy {
+        BaseAdapter<Gallery>(
+            layoutResourceId = R.layout.item_gallery,
+            bindingID = BR.item,
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setupUI()
+        setupObserver()
+    }
+
+    private fun setupObserver() {
+        viewModel.boxGroup.observe(viewLifecycleOwner) {
+            adapter.replaceItems(it)
+        }
     }
 
     private fun setupUI() {
-        binding.rvMyBox.adapter = BaseAdapter<Gallery>(
-            layoutResourceId = R.layout.item_gallery,
-            bindingID = BR.item,
-        ).apply {
-            viewModel.boxGroup.observe(viewLifecycleOwner) {
-                replaceItems(it)
-            }
-        }
+        binding.rvMyBox.adapter = adapter
     }
 
     companion object {

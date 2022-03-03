@@ -1,13 +1,11 @@
 package com.beok.kakaogallerysearch.presentation.adapter
 
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.beok.kakaogallerysearch.presentation.MyBoxFragment
-import com.beok.kakaogallerysearch.presentation.SearchResultFragment
 
 class MainAdapter(
-    activity: AppCompatActivity,
+    activity: FragmentActivity,
     private val fragmentGroup: List<Fragment>
 ) : FragmentStateAdapter(activity) {
 

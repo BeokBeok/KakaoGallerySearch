@@ -11,7 +11,6 @@ import com.beok.kakaogallerysearch.presentation.model.PageInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
@@ -30,44 +29,36 @@ class SearchViewModel @Inject constructor(
     private val _error = MutableLiveData<Throwable>()
     val error: LiveData<Throwable> get() = _error
 
-    var pageInfo = PageInfo()
-        private set
+    private val pageInfo = PageInfo()
     val loading = Loading()
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        loading.hide()
         _error.value = throwable
     }
 
-    fun setupPageInfo(isNext: Boolean = false) {
-        if (!isNext) {
-            pageInfo = PageInfo()
-            _galleryGroup.value = emptyList()
-        } else {
-            pageInfo = pageInfo.copy(value = pageInfo.value + 1)
-        }
-    }
+    fun searchGallery(isNext: Boolean, query: String) =
+        viewModelScope.launch(coroutineExceptionHandler) {
+            pageInfo.setup(isNext = isNext)
 
-    fun searchGallery(query: String) = viewModelScope.launch(coroutineExceptionHandler) {
-        if (pageInfo.isEnd) return@launch
-        searchGalleryUseCase
-            .execute(query = query, page = pageInfo.value)
-            .catch {
-                loading.hide()
-                _error.value = it
-            }
-            .onStart { loading.show() }
-            .onCompletion { loading.hide() }
-            .collect {
-                _galleryGroup.value = (_galleryGroup.value?.toList() ?: emptyList())
-                    .plus(it.imageChunk.imageGroup.map(Gallery::fromDomain))
-                    .plus(it.videoChunk.videoGroup.map(Gallery::fromDomain))
-                    .sortedByDescending(Gallery::datetime)
-                pageInfo = pageInfo.copy(isEnd = it.imageChunk.isEnd && it.videoChunk.isEnd)
-            }
-    }
+            if (pageInfo.isEnd) return@launch
+
+            if (!isNext) _galleryGroup.value = emptyList()
+            searchGalleryUseCase
+                .execute(query = query, page = pageInfo.value)
+                .onStart { loading.show() }
+                .onCompletion { loading.hide() }
+                .collect {
+                    _galleryGroup.value = (_galleryGroup.value?.toList() ?: emptyList())
+                        .plus(it.imageChunk.imageGroup.map(Gallery::fromDomain))
+                        .plus(it.videoChunk.videoGroup.map(Gallery::fromDomain))
+                        .sortedByDescending(Gallery::datetime)
+                    pageInfo.update(isEnd = it.imageChunk.isEnd && it.videoChunk.isEnd)
+                }
+        }
 
     fun onClickForSave(item: Gallery) {
-        _boxGroup.value = (_boxGroup.value ?: emptyList())
+        _boxGroup.value = (_boxGroup.value?.toList() ?: emptyList())
             .plus(item)
             .distinct()
     }

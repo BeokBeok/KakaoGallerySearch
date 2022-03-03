@@ -12,6 +12,7 @@ import com.beok.kakaogallerysearch.presentation.base.BaseAdapter
 import com.beok.kakaogallerysearch.presentation.base.BaseFragment
 import com.beok.kakaogallerysearch.presentation.ext.launchAndRepeatOnLifecycle
 import com.beok.kakaogallerysearch.presentation.ext.textChanges
+import com.beok.kakaogallerysearch.presentation.model.ClickAction
 import com.beok.kakaogallerysearch.presentation.model.Gallery
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -24,6 +25,15 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(
 ) {
 
     private val viewModel by activityViewModels<SearchViewModel>()
+    private val adapter by lazy {
+        BaseAdapter<Gallery>(
+            layoutResourceId = R.layout.item_gallery,
+            bindingID = BR.item,
+            clickAction = ClickAction(bindingID = BR.onClick) {
+                viewModel.onClickForSave(item = it)
+            }
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,6 +41,7 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(
         setupBinding()
         setupUI()
         setupListener()
+        setupObserver()
         showContent()
     }
 
@@ -39,14 +50,12 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(
     }
 
     private fun setupUI() {
-        binding.rvSearchResult.adapter = BaseAdapter<Gallery>(
-            layoutResourceId = R.layout.item_gallery,
-            bindingID = BR.item,
-            viewModel = mapOf(BR.viewModel to viewModel)
-        ).apply {
-            viewModel.galleryGroup.observe(viewLifecycleOwner) {
-                replaceItems(it)
-            }
+        binding.rvSearchResult.adapter = adapter
+    }
+
+    private fun setupObserver() {
+        viewModel.galleryGroup.observe(viewLifecycleOwner) {
+            adapter.replaceItems(it)
         }
     }
 
@@ -74,7 +83,7 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(
             binding.etSearchResult
                 .textChanges()
                 .filterNot(CharSequence?::isNullOrBlank)
-                .debounce(300)
+                .debounce(500)
                 .collectLatest {
                     it?.toString()?.let { keyword ->
                         loadContent(isNext = false, keyword = keyword)
@@ -84,12 +93,10 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(
     }
 
     private fun loadContent(isNext: Boolean, keyword: String) {
-        viewModel.setupPageInfo(isNext)
-        viewModel.searchGallery(keyword)
+        viewModel.searchGallery(isNext = isNext, query = keyword)
     }
 
     companion object {
-
         fun newInstance(): SearchResultFragment = SearchResultFragment()
     }
 }

@@ -20,8 +20,13 @@ class KakaoSearchRepositoryImplTest {
 
     @Test
     fun `이미지를 검색합니다`() {
+        // given
         val query = "설현"
+
+        // when
         repository.searchImageBy(query = query)
+
+        // then
         verify {
             remoteDataSource.searchImageBy(query = query)
         }
@@ -29,8 +34,13 @@ class KakaoSearchRepositoryImplTest {
 
     @Test
     fun `비디오를 검색합니다`() {
+        // given
         val query = "AOA"
+
+        // when
         repository.searchVideoBy(query = query)
+
+        // then
         verify {
             remoteDataSource.searchVideoBy(query = query)
         }

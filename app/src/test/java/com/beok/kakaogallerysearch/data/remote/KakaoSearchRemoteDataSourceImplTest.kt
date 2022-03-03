@@ -22,15 +22,17 @@ class KakaoSearchRemoteDataSourceImplTest {
 
     @Test
     fun `이미지를 검색합니다`() = runBlocking {
+        // given
         val query = "설현"
         val mockResponse: ImageResponse = mockk()
-
         coEvery {
             searchAPI.searchImageBy(query = query)
         } returns mockResponse
 
+        // when
         dataSource.searchImageBy(query = query)
             .test {
+                // then
                 assertEquals(mockResponse, awaitItem())
                 awaitComplete()
             }
@@ -38,15 +40,17 @@ class KakaoSearchRemoteDataSourceImplTest {
 
     @Test
     fun `비디오를 검색합니다`() = runBlocking {
+        // given
         val query = "AOA"
         val mockResponse: VideoResponse = mockk()
-
         coEvery {
             searchAPI.searchVideoBy(query = query)
         } returns mockResponse
 
+        // when
         dataSource.searchVideoBy(query = query)
             .test {
+                // then
                 assertEquals(mockResponse, awaitItem())
                 awaitComplete()
             }

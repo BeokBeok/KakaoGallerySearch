@@ -43,6 +43,7 @@ object Coroutines {
 
 object Mock {
     const val K = "io.mockk:mockk:1.12.0"
+    const val WEB_SERVER = "com.squareup.okhttp3:mockwebserver:4.9.3"
 }
 
 object Etc {

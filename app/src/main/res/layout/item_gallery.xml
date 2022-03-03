@@ -4,13 +4,19 @@
 
     <data>
 
+        <import type="kotlin.jvm.functions.Function1" />
+
+        <import type="com.beok.kakaogallerysearch.presentation.model.Gallery" />
+
+        <import type="kotlin.Unit" />
+
         <variable
             name="item"
             type="com.beok.kakaogallerysearch.presentation.model.Gallery" />
 
         <variable
-            name="viewModel"
-            type="com.beok.kakaogallerysearch.presentation.SearchViewModel" />
+            name="onClick"
+            type="Function1&lt;Gallery,Unit&gt;" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:contentDescription="@null"
-            android:onClick="@{() -> viewModel.onClickForSave(item)}"
+            android:onClick="@{() -> onClick.invoke(item)}"
             app:layout_constraintDimensionRatio="H,3:4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

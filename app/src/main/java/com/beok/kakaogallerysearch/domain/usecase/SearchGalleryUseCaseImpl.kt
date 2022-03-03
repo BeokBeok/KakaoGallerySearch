@@ -15,10 +15,10 @@ class SearchGalleryUseCaseImpl @Inject constructor(
 
     override fun execute(query: String, page: Int): Flow<ImageVideoChunk> =
         repository.searchImageBy(query, page)
-            .catch { emit(ImageChunk(isEnd = true, imageGroup = listOf())) }
+            .catch { emit(ImageChunk(isEnd = true, imageGroup = emptyList())) }
             .zip(
                 repository.searchVideoBy(query, page)
-                    .catch { emit(VideoChunk(isEnd = true, videoGroup = listOf())) }
+                    .catch { emit(VideoChunk(isEnd = true, videoGroup = emptyList())) }
             ) { imageChunk, videoChunk ->
                 ImageVideoChunk(imageChunk, videoChunk)
             }

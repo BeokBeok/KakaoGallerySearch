@@ -18,6 +18,6 @@ data class ImageResponse(
 
 	override fun toDomain(): ImageChunk = ImageChunk(
 		isEnd = meta?.isEnd ?: false,
-		imageGroup = documents?.toDomain() ?: emptyList()
+		imageGroup = documents?.toDomain().orEmpty()
 	)
 }

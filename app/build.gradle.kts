@@ -33,6 +33,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-Xuse-experimental=kotlinx.coroutines.FlowPreview",
+        )
     }
     buildFeatures {
         dataBinding = true
@@ -87,8 +90,11 @@ dependencies {
         implementation(OKHTTP)
     }
 
+    Mock.run {
+        testImplementation(K)
+        testImplementation(WEB_SERVER)
+    }
     testImplementation(JUnit.CORE)
-    testImplementation(Mock.K)
     testImplementation(Etc.TURBINE)
     coreLibraryDesugaring(DESUGAR.JDK_LIBS)
 }
