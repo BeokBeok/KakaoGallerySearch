@@ -1,4 +1,4 @@
-package com.beok.kakaogallerysearch.presentation.model
+package com.beok.kakaogallerysearch.presentation.main.model
 
 import com.beok.kakaogallerysearch.domain.model.Image
 import com.beok.kakaogallerysearch.domain.model.Video

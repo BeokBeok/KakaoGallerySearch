@@ -1,4 +1,4 @@
-package com.beok.kakaogallerysearch.presentation.model
+package com.beok.kakaogallerysearch.presentation.main.model
 
 sealed class MyBoxStatus {
     object Added : MyBoxStatus()

@@ -1,4 +1,4 @@
-package com.beok.kakaogallerysearch.presentation.util
+package com.beok.kakaogallerysearch.presentation.model
 
 class Event<T>(private val content: T) {
     private var hasBeenHandled = false

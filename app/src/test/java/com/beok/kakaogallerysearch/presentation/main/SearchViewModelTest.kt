@@ -1,4 +1,4 @@
-package com.beok.kakaogallerysearch.presentation
+package com.beok.kakaogallerysearch.presentation.main
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.beok.kakaogallerysearch.MainCoroutineRule
@@ -9,15 +9,14 @@ import com.beok.kakaogallerysearch.domain.model.Video
 import com.beok.kakaogallerysearch.domain.model.VideoChunk
 import com.beok.kakaogallerysearch.domain.usecase.SearchGalleryUseCase
 import com.beok.kakaogallerysearch.getOrAwaitValue
-import com.beok.kakaogallerysearch.presentation.model.Gallery
-import com.beok.kakaogallerysearch.presentation.model.MyBoxStatus
+import com.beok.kakaogallerysearch.presentation.main.model.Gallery
+import com.beok.kakaogallerysearch.presentation.main.model.MyBoxStatus
 import io.mockk.every
 import io.mockk.mockk
 import java.util.Date
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertThrows
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

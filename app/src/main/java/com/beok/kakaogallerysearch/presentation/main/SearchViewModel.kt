@@ -1,15 +1,15 @@
-package com.beok.kakaogallerysearch.presentation
+package com.beok.kakaogallerysearch.presentation.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.beok.kakaogallerysearch.domain.usecase.SearchGalleryUseCase
-import com.beok.kakaogallerysearch.presentation.model.Gallery
+import com.beok.kakaogallerysearch.presentation.main.model.Gallery
 import com.beok.kakaogallerysearch.presentation.model.Loading
-import com.beok.kakaogallerysearch.presentation.model.MyBoxStatus
+import com.beok.kakaogallerysearch.presentation.main.model.MyBoxStatus
 import com.beok.kakaogallerysearch.presentation.model.PageInfo
-import com.beok.kakaogallerysearch.presentation.util.Event
+import com.beok.kakaogallerysearch.presentation.model.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineExceptionHandler

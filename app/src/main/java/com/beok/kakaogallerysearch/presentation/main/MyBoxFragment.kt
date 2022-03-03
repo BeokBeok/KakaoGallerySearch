@@ -1,4 +1,4 @@
-package com.beok.kakaogallerysearch.presentation
+package com.beok.kakaogallerysearch.presentation.main
 
 import android.os.Bundle
 import android.view.View
@@ -9,7 +9,7 @@ import com.beok.kakaogallerysearch.R
 import com.beok.kakaogallerysearch.databinding.FragmentMyBoxBinding
 import com.beok.kakaogallerysearch.presentation.base.BaseAdapter
 import com.beok.kakaogallerysearch.presentation.base.BaseFragment
-import com.beok.kakaogallerysearch.presentation.model.Gallery
+import com.beok.kakaogallerysearch.presentation.main.model.Gallery
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

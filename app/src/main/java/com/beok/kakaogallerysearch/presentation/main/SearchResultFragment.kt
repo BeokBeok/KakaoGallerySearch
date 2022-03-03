@@ -1,4 +1,4 @@
-package com.beok.kakaogallerysearch.presentation
+package com.beok.kakaogallerysearch.presentation.main
 
 import android.os.Bundle
 import android.view.View
@@ -14,8 +14,8 @@ import com.beok.kakaogallerysearch.presentation.base.BaseFragment
 import com.beok.kakaogallerysearch.presentation.ext.launchAndRepeatOnLifecycle
 import com.beok.kakaogallerysearch.presentation.ext.textChanges
 import com.beok.kakaogallerysearch.presentation.model.ClickAction
-import com.beok.kakaogallerysearch.presentation.model.Gallery
-import com.beok.kakaogallerysearch.presentation.model.MyBoxStatus
+import com.beok.kakaogallerysearch.presentation.main.model.Gallery
+import com.beok.kakaogallerysearch.presentation.main.model.MyBoxStatus
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce

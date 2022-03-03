@@ -1,10 +1,10 @@
-package com.beok.kakaogallerysearch.presentation
+package com.beok.kakaogallerysearch.presentation.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.beok.kakaogallerysearch.R
 import com.beok.kakaogallerysearch.databinding.ActivityMainBinding
-import com.beok.kakaogallerysearch.presentation.adapter.MainAdapter
+import com.beok.kakaogallerysearch.presentation.main.adapter.MainAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -1,4 +1,4 @@
-package com.beok.kakaogallerysearch.presentation.adapter
+package com.beok.kakaogallerysearch.presentation.main.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

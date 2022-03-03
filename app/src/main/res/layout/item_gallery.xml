@@ -7,17 +7,17 @@
 
         <import type="kotlin.jvm.functions.Function1" />
 
-        <import type="com.beok.kakaogallerysearch.presentation.model.Gallery" />
+        <import type="com.beok.kakaogallerysearch.presentation.main.model.Gallery" />
 
         <import type="kotlin.Unit" />
 
         <variable
             name="item"
-            type="com.beok.kakaogallerysearch.presentation.model.Gallery" />
+            type="com.beok.kakaogallerysearch.presentation.main.model.Gallery" />
 
         <variable
             name="onClick"
-            type="Function1&lt;Gallery,Unit&gt;" />
+            type="com.beok.kakaogallerysearch.presentation.main.model.Gallery" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
