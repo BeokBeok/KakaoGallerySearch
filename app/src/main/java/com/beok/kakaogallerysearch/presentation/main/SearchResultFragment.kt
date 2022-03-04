@@ -104,7 +104,7 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(
             binding.etSearchResult
                 .textChanges()
                 .filterNot(CharSequence?::isNullOrBlank)
-                .debounce(500)
+                .debounce(1_000)
                 .collectLatest {
                     it?.toString()?.let { keyword ->
                         loadContent(isNext = false, keyword = keyword)
