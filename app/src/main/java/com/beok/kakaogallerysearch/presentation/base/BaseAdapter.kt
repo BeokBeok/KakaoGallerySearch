@@ -29,11 +29,16 @@ class BaseAdapter<T>(
     override fun getItemCount(): Int = itemGroup.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun replaceItems(item: List<T>) {
+    fun replaceItems(items: List<T>) {
         itemGroup.run {
             clear()
-            addAll(item)
+            addAll(items)
         }
         notifyDataSetChanged()
+    }
+
+    fun addItem(item: T) {
+        itemGroup.add(item)
+        notifyItemInserted(itemGroup.lastIndex)
     }
 }
