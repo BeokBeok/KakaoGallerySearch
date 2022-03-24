@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
                 getString(R.string.search_result),
                 getString(R.string.my_box)
             )
+            vpMain.offscreenPageLimit = 1
             TabLayoutMediator(tlMain, vpMain) { tab, position ->
                 tab.text = tabTitleGroup[position]
             }.attach()
