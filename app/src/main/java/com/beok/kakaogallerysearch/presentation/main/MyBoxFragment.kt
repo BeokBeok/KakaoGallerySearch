@@ -34,7 +34,7 @@ class MyBoxFragment : BaseFragment<FragmentMyBoxBinding>(
     private fun setupObserver() {
         viewModel.boxGroup.observe(viewLifecycleOwner) {
             binding.tvMyBoxEmpty.isVisible = it.isEmpty()
-            adapter.addItem(it.last())
+            adapter.replaceItems(it)
         }
     }
 

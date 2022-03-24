@@ -36,9 +36,4 @@ class BaseAdapter<T>(
         }
         notifyDataSetChanged()
     }
-
-    fun addItem(item: T) {
-        itemGroup.add(item)
-        notifyItemInserted(itemGroup.lastIndex)
-    }
 }
